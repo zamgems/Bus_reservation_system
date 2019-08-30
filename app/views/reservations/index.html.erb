@@ -1,0 +1,77 @@
+<div >
+    <h3><%=  pluralize(@reservations.count, "Reservation") %></h3>
+    
+    
+    <% if @reservations.any? %>
+      
+      <table class="table table-bordered table-hover "  >
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+           
+            <th>Source</th>
+            <th>Destination</th>
+            <th>No of Seats</th>
+            <th>Booked Seats</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <%count = 1 %>
+        <% @reservations.each do |reservation|%>  
+          <tr>
+            <td><%= count %></td>
+            <% count = count + 1 %> 
+          
+            <td> <%= reservation.bus.source %> </td>
+            <td> <%= reservation.bus.destination %> </td>
+            <td> <%= reservation.no_of_seats %> </td>
+            <td> <%= reservation.seats.map(&:seat_no) %> </td>
+            <td> <%= reservation.date.strftime("%d-%m-%Y") %> </td>
+            <td> <%= reservation.status %> </td>
+            <td> <% if reservation.active? %>
+                   <%= link_to "cancel reservation", cancel_reservation_path(reservation), :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger delete' %>
+                  <% end %>                
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+
+    <% if @past_reservations.any? %>
+      
+      <table class="table table-bordered table-hover "  >
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+           
+            <th>Source</th>
+            <th>Destination</th>
+            <th>No of Seats</th>
+            <th>Booked Seats</th>
+            <th>Date</th>
+            <th>Status</th>
+            
+          </tr>
+        </thead>
+
+        <%count = 1 %>
+        <% @past_reservations.each do |reservation|%>  
+          <tr>
+            <td><%= count %></td>
+            <% count = count + 1 %> 
+          
+            <td> <%= reservation.bus.source %> </td>
+            <td> <%= reservation.bus.destination %> </td>
+            <td> <%= reservation.no_of_seats %> </td>
+            <td> <%= reservation.seats.map(&:seat_no) %> </td>
+            <td> <%= reservation.date.strftime("%d-%m-%Y") %> </td>
+            <td> <%= reservation.status %> </td>
+            
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>

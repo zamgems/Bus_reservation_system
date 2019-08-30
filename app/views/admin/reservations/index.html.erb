@@ -1,0 +1,49 @@
+<div >
+    <h3><%=  pluralize(@reservations.count, "Reservation") %></h3>
+    <% unless params[:bus_id].blank? %>
+      <h2> <%= @bus.name %>  </h2>
+    <% end %>
+    <%= form_tag({controller: "reservations", action: "index"}, method: "get", class: "") do %>
+      <%= label_tag(:date, "Date:") %>
+      <%= date_field_tag(:date, @date) %>
+      
+      <br>
+      <%= submit_tag("Search") %>
+    <% end %>
+    <% if @reservations.any? %>
+      
+      <table class="table table-bordered table-hover "  >
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <% if params[:bus_id].blank? %>
+              <th>Bus</th>
+            <%end%>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Total Booked Seats</th>
+            <th>Seat Number</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+
+        <%count = 1 %>
+        <% @reservations.each do |reservation|%>  
+          <tr>
+            <td><%= count %></td>
+            <% count = count + 1 %> 
+            <td><%= reservation.user.name %></td>
+            <% if params[:bus_id].blank? %>
+              <td><%= reservation.bus.name %></td>
+            <% end %>
+            <td> <%= reservation.bus.source %> </td>
+            <td> <%= reservation.bus.destination %> </td>
+            <td> <%= reservation.no_of_seats %> </td>
+            <td> <%= reservation.seats.map(&:seat_no) %> </td>
+            <td> <%= reservation.date.strftime("%d-%m-%Y") %> </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>

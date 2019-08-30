@@ -1,0 +1,26 @@
+<!--  <div class="pull-right">
+	<h3 id='timeLeft' >
+		300
+	</h3>
+</div>  -->
+<%- model_class = Bus -%>
+<div class="page-header">
+  <h1><%= @bus.name %>: </h1><h2><%= @bus.source %> to <%= @bus.destination %></h2>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @bus.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:registration_no) %>:</strong></dt>
+  <dd><%= @bus.registration_no %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:source) %>:</strong></dt>
+  <dd><%= @bus.source %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:destination) %>:</strong></dt>
+  <dd><%= @bus.destination %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total_seats) %>:</strong></dt>
+  <dd><%= @bus.total_seats %></dd>
+  <dt><strong>Available seats:</strong></dt>
+  <dd><div id="available_seats" >  </div></dd>
+</dl>
+
+<%= render 'reservation_form' %>

@@ -1,0 +1,35 @@
+<div class="navbar navbar-default navbar-static-top">
+  <!-- <div class="navbar-collapse collapse navbar-responsive-collapse "> -->
+  
+  <!-- </div> -->
+  <div class="container">
+    <%= image_tag("bus_logo.png", :class=>'header-image') %>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+     
+    <a class="navbar-brand" href=<%= root_path %> >Bus Reservation System</a>
+
+  
+    <div class="navbar-collapse collapse navbar-responsive-collapse pull-right ">
+      <% unless user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <% unless current_page?(new_user_session_path) %>
+            <li><%= link_to "Sign In", new_user_session_path %></li>
+          <% end %>
+          <% unless current_page?(new_user_registration_path) %>
+            <li><%= link_to "Sign Up", new_user_registration_path %></li>  
+          <% end %>
+          
+        </ul>
+        
+      <% else %>
+        <ul class="nav navbar-nav">
+          <li><%= link_to "sign out (#{current_user.name})", destroy_user_session_path, method: :delete, :data=> {:confirm=>"Are you sure?" }%> </li>
+        </ul>
+      <% end %> 
+    </div>
+  </div>
+</div>

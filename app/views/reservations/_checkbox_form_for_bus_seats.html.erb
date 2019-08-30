@@ -1,0 +1,25 @@
+<% flag = is_seat_available?(seat,date) ? false : true 
+	image_file_name = flag ? "checked_seat.png" : "available_seat.png"
+	seat_availablity = flag ? "reserved" : "available"
+%>  
+	 <label style="display: inline;">
+			
+			<%=check_box_tag("reservation[seat_ids][]",seat, flag, {disabled: flag , class: "checkbox_count" }) %> 
+			
+			<%= image_tag (image_file_name), class:"checkbox-img" , title:"seat no : #{seat} #{seat_availablity}", style:"margin-right: #{if seat % 2==0
+				'50px'
+			else
+				'0'
+			end};
+			cursor: #{if flag 
+				'not-allowed' 
+			else 
+				'auto'
+			end };"%>
+	</label>
+<% if seat%4 == 0 %>
+	<br>
+<% end %>
+
+
+

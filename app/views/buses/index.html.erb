@@ -1,0 +1,42 @@
+
+
+
+ <%= form_tag({controller: "buses", action: "index"}, method: "get", class: "") do %>
+  <%= label_tag(:source, "Source:") %>
+  <%= text_field_tag(:source) %>
+  <%= label_tag(:destination, "Destination:") %>
+  <%= text_field_tag(:destination) %>
+  <%= label_tag(:name, "Name:") %>
+  <%= text_field_tag(:name) %>
+ <%#= label_tag(:date, "date:") %>
+ <%#= date_field_tag(:date,cookies[:date]) %>
+  <br>
+  <%= submit_tag("Search") %>
+ <% end %>
+<h3>Buses</h3>
+<table class="table table-bordered table-hover ">
+<thead class="thead-dark">
+<tr>
+  <th>#</th>
+  <th>Name</th>
+  
+  <th>Source</th>
+  <th>Destination</th>
+  <th>Total Seats</th>
+  <th></th>
+</tr></thead>
+
+<%count = 1 %>
+<% @buses.each do |bus|%>  
+  <tr>
+    <td><%= count %></td>
+    <% count = count + 1 %> 
+    <td><%=bus.name%></td>
+    
+    <td><%=bus.source%></td>
+    <td><%=bus.destination%></td>
+    <td><%=bus.total_seats%></td>
+    <td><%= link_to "View Seats", new_bus_reservation_path(bus) %></td>
+  </tr>
+  <% end %>
+</table>

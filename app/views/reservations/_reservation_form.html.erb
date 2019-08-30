@@ -1,0 +1,42 @@
+
+<% @reservation.date = params[:date] ? params[:date] : @reservation.date %>
+	<%= form_for(@reservation, url: bus_reservations_path(@bus)) do |form|%>
+	<ul>
+		<% @reservation.errors.full_messages.each do |er| %>
+			<li>
+				<%= er %>
+			</li>
+		<% end %>
+	</ul>
+	<div class="frm" data-customer_id="<%= @customer.id%>" data-bus_id="<%= @bus.id%>" >
+		<table class="table-borderless">  
+			<tr>
+				<td><%= form.label:no_of_seats,  :required => true  %></td>
+				<td><%= form.number_field :no_of_seats, {min:1, max:"#{@bus.total_seats}", readonly:true ,class: "number" }  %></td>
+			</tr>
+			<tr>
+				<td><%= form.label:date %></td>
+				<td><%= form.date_field:date  , {min:"#{Time.now.to_date}", max:"", class:"target", autofocus:true}    %></td>
+			</tr>
+			<tr>
+				<td class="choose-seat-logo" ><b>Choose seats<b> </td>
+				<td>
+					<ol>
+						<div class="box_class_for_seat">
+
+						</div>
+					</ol>
+				</td>	
+			</tr>
+			
+				<tr class="choose-seat-logo" style="display: none;">
+					<td><%=link_to "Cancel", buses_path, class: "btn btn-danger" %>  </td>
+					<td> <%= form.submit "Book" , class: "btn btn-primary"%> </td>
+					<%= hidden_field_tag(:bus_id, @bus.id) %> 
+				</tr>
+			
+		</table>
+	</div>
+<%end%>
+
+

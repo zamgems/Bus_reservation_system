@@ -1,0 +1,61 @@
+<h1>Owners</h1>
+<table class="table" >
+	<thead>
+		<th>Name</th>
+		<th>Licence</th>
+		<th>Email</th>
+		<th>Status</th>
+		<th>Buses</th>
+		<th>Reservations</th>
+		<th>Actions</th>
+	</thead>
+	<% @owners.each do |owner| %>
+		<tr>
+			<td> <%= owner.user.name %> </td>	
+			<td> <% if owner.licence %>
+					<%= "available" %>
+				<% else %>
+					<%= "not available" %>
+				<% end %>
+			</td>
+			<td> <%= owner.user.email %> </td>
+			<td>
+				<% case owner.user.status %>
+					<% when "pending" %>
+						Pending  &#x2753
+						
+					<% when "approved" %>
+						approved  &#9989
+						
+					<% when "suspended" %>
+						Suspended  &#x2757 
+						
+				<% end %>
+			</td>
+			<td>
+				<%= link_to "All buses", admin_owner_buses_path(owner) %>
+			</td>
+			<td>
+				<%= link_to "All reservations", admin_owner_reservations_path(owner) %>
+			</td>
+			<td>
+				<% case owner.user.status %>
+					<% when "pending" %>
+						
+						<%= link_to "Approve", approve_admin_owner_path(owner), :class => "btn btn-success" , method: :put%>
+						
+					<% when "approved" %>
+						
+						<%= link_to "Suspend", suspend_admin_owner_path(owner), :class => "btn btn-success", method: :put %>
+						
+					<% when "suspended" %>
+						
+						<%= link_to "Approve", approve_admin_owner_path(owner), :class => "btn btn-success", method: :put %>
+					<% end %>
+						<%= link_to "Delete", admin_owner_path(owner), :class => "btn btn-danger", method: :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } %>
+				
+					
+			</td>
+		</tr>
+	<% end %>
+</table>

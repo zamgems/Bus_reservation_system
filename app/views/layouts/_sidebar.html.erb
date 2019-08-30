@@ -1,0 +1,33 @@
+<div class="col-lg-3">
+    <div class="well sidebar-nav">
+    <h3>Content</h3>
+        <ul class="list-group">
+        	<!-- common for all -->
+        	    <li class="list-group-item" ><%= link_to_unless current_page?(reservations_path), "My reservations", reservations_path, class:"btn btn-link current-link" %></li>
+            	<li class="list-group-item" ><%= link_to_unless (current_page?(buses_path)||current_page?(root_path)), "Book a seat", buses_path, class:"btn btn-link current-link"  %></li>
+            
+            <!-- for owner -->
+            	<% if user_signed_in? and current_user.owner? %>
+            		<li class="list-group-item" ><%= link_to_unless current_page?(owner_buses_path) ,"My Buses", owner_buses_path, class:"btn btn-link current-link"  %></li>
+                    <li class="list-group-item" ><%= link_to_unless current_page?(owner_reservations_path) ,"All Reservations", owner_reservations_path, class:"btn btn-link current-link"  %></li>
+            	<% end %>
+
+
+            <!-- for admin -->
+                <% if user_signed_in? and current_user.admin? %>
+                   <li class="list-group-item" ><%= link_to_unless  current_page?(admin_owners_path) , "Owners", admin_owners_path, class:"btn btn-link current-link" %></li>
+                    <li class="list-group-item" ><%= link_to_unless  current_page?(admin_buses_path) , "All Buses", admin_buses_path, class:"btn btn-link current-link" %></li>
+                    <li class="list-group-item" ><%= link_to_unless  current_page?(admin_reservations_path) , "All Reservations", admin_reservations_path, class:"btn btn-link current-link" %></li>
+                <% end %>
+        </ul>
+    </div><!--/.well -->
+    
+        <div class="well sidebar-nav" id="bus-indication">
+            
+                <h3>Indication</h3>
+                <%= image_tag ("checked_seat.png"), class:"demo-checkbox-img" , title:"Seat Reserved"%>Seat Reserved  <br>
+                <%= image_tag ("available_seat.png"), class:"demo-checkbox-img demo-available-seat" , title:"Seat Available"%>Seat Available
+            
+        </div>
+    
+</div><!--/span-->

@@ -1,0 +1,49 @@
+ <% flag = current_page?(admin_buses_path) %>
+ <%= form_tag({controller: "buses", action: "index"}, method: "get", class: "") do %>
+  <%= label_tag(:source, "Source:") %>
+  <%= text_field_tag(:source) %>
+  <%= label_tag(:destination, "Destination:") %>
+  <%= text_field_tag(:destination) %>
+  <%= label_tag(:name, "Name:") %>
+  <%= text_field_tag(:name) %>
+ <%#= label_tag(:date, "date:") %>
+ <%#= date_field_tag(:date,cookies[:date]) %>
+  <br>
+  <%= submit_tag("Search") %>
+<% end %>
+<% unless flag %>
+  <h3> Owner <%= @owner.user.name %> </h3>
+<% end %>
+<h4>Buses</h4>
+<table class="table table-bordered table-hover ">
+<thead class="thead-dark">
+<tr>
+  <th>#</th>
+  <% if flag %>
+    <th>Owner</th>
+  <% end %>
+  <th>Name</th>
+  <th>Source</th>
+  <th>Destination</th>
+  <th>Total Seats</th>
+  <th>Status</th>
+  <th>Reservations</th>
+</tr></thead>
+
+<%count = 1 %>
+<% @buses.each do |bus|%>  
+  <tr>
+    <td><%= count %></td>
+    <% count = count + 1 %>
+    <% if flag %>
+      <td><%= bus.owner.user.name %></td> 
+    <% end %>
+    <td><%=bus.name%></td>
+    <td><%=bus.source%></td>
+    <td><%=bus.destination%></td>
+    <td><%=bus.total_seats%></td>
+    <td><%= bus.status %></td>
+    <td><%= link_to "Reservations", flag ? admin_bus_reservations_path(bus) : admin_owner_bus_reservations_path(@owner, bus) %></td>
+  </tr>
+  <% end %>
+</table>

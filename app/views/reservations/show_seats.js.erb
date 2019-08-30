@@ -1,0 +1,11 @@
+$(".box_class_for_seat").html("<%= j render(partial: 'reservations/checkbox_form_for_bus_seats', collection: @total_seats, as: :seat, locals: {date: @date}) %>");
+ $(".box_class_for_seat").slideDown();
+ $(".choose-seat-logo").slideDown();
+$("#bus-indication").slideDown();
+// $("#bus-indication").css("visibility", "visible");
+$('#available_seats').html("<%= @remaining_seats %>");
+var increment=0;
+  $('.checkbox_count').on('change', function() {
+    increment += this.checked ? 1 : -1
+    $('.number').val(increment); 
+  })
