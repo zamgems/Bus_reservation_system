@@ -41,5 +41,10 @@ $( document ).on('turbolinks:load', function() {
      }
    });
  })
+
+ $('#search-reservation-date-field').on('change', function(){
+  $('#reservation-search-button').trigger('click');
+ })
+
 })
 

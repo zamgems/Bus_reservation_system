@@ -7,10 +7,10 @@
     <% end %>
     <%= form_tag({controller: "reservations", action: "index"}, method: "get", class: "") do %>
       <%= label_tag(:date, "Date:") %>
-      <%= date_field_tag(:date, @date) %>
+      <%= date_field_tag(:date, @date, id:"search-reservation-date-field") %>
       
       <br>
-      <%= submit_tag("Search") %>
+      <%= submit_tag("Search", id:"reservation-search-button") %>
     <% end %>
     <% if @reservations.any? %>
       

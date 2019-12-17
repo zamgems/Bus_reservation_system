@@ -72,7 +72,7 @@ class Owner::BusesController < ApplicationController
   	private
 	    # Use callbacks to share common setup or constraints between actions.
 	    def set_bus
-	      @bus = Bus.find(params[:id])
+	      @bus = Bus.friendly.find(params[:id])
 	    end
 	    def set_owner
 	      @owner = Owner.find_by(user_id:current_user.id)
