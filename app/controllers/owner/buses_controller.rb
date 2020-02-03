@@ -31,7 +31,6 @@ class Owner::BusesController < ApplicationController
     @bus.owner_id = @owner.id
     respond_to do |format|
       if @bus.save
-
         format.html { redirect_to owner_buses_path, notice: 'Bus was successfully created.' }
         format.json { render :show, status: :created, location: @bus }
       else
