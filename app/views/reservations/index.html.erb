@@ -41,7 +41,7 @@
     <% end %>
 
     <% if @past_reservations.any? %>
-      
+    <h3> <%= pluralize(@past_reservations.count, "Past Reservation") %></h3>
       <table class="table table-bordered table-hover "  >
         <thead class="thead-dark">
           <tr>

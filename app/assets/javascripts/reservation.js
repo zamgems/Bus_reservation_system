@@ -1,18 +1,21 @@
 
-$( document ).on('turbolinks:load', function() { 
- $(".close").on('click', function(){
-    $(".alert").slideUp();
-  })
- var pre_date = $('#reservation_date').val();
- $("#reservation_date").on("change", function(){
-  var d = new Date();
+$( document ).on('turbolinks:load', function() {
+  $('.table').DataTable();
 
-	var month = d.getMonth()+1;
-	var day = d.getDate();
+  $(".close").on('click', function(){
+      $(".alert").slideUp();
+    })
 
-	var output = d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
+  var pre_date = $('#reservation_date').val();
+  $("#reservation_date").on("change", function(){
+    var d = new Date();
+
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+
+    var output = d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
 	
-	var date = this.value;
+	  var date = this.value;
    	if(date<output){
       alert("past dates");
     }
@@ -25,29 +28,30 @@ $( document ).on('turbolinks:load', function() {
        bus_id: bus_id
      };
     
-    return $.ajax({
-     method: "GET",
-     url: '/reservations/show_seats',
-     type: "script",
-     data: params,
-     success: function(){
-     	//alert('Saved Successfully');
-     },
-     error: function(){
-     	//alert('error error error');
-     },
-     complete: function(){
+    $.ajax({
+      method: "GET",
+      url: '/reservations/show_seats',
+      type: "script",
+      data: params,
+      success: function(){
+        //alert('Saved Successfully');
+      },
+      error: function(){
+        //alert('error error error');
+      },
+      complete: function(){
 
-     }
-   });
- })
+      }
+    });
+  })
 
- $('#search-reservation-date-field').on('change', function(){
-  $('#reservation-search-button').trigger('click');
- })
+  $('#search-reservation-date-field').on('change', function(){
+    $('#reservation-search-button').trigger('click');
+  })
 
+  $('.sidebar-nav li').hover(function() {
+      $(this).addClass('active-hover');
+    }, function() {
+    $(this).removeClass('active-hover');
+  })
 })
-
-$(document).ready( function () {
-    $('table').DataTable();
-} )

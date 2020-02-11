@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if @user.customer?
         @user.status = "approved"
         if @user.save
-          session[:user_id] = @user.id
+          sign_in(@user)
           redirect_to root_path, notice:"Customer Successfully Signed Up"
         else
           flash[:notice] = "Something went wrong"
@@ -26,7 +26,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if @user.owner?
         @user.status = "pending"
         if @user.save
-          session[:user_id] = @user.id
+          sign_in(@user)
           Owner.create(user_id: @user.id, licence: false)
           redirect_to root_path, notice:"Owner Successfully Signed Up"
         else

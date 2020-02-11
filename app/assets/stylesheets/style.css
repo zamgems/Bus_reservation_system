@@ -81,3 +81,12 @@ opacity: 1;
 body{
 	margin-bottom: 0;
 }
+
+.active-hover {
+	background-color: #428bca;
+	border: #428bca;
+}
+
+.active-hover a {
+  color: white !important;
+}
