@@ -16,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if @user.customer?
         @user.status = "approved"
         if @user.save
+          UserMailer.with(user: @user).welcome_email.deliver_now
           sign_in(@user)
           redirect_to root_path, notice:"Customer Successfully Signed Up"
         else

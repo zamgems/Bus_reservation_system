@@ -21,6 +21,7 @@ class ReservationsController < ApplicationController
 		@reservation.bus = @bus
 		seats_parameters = params.require(:reservation).permit(:seat_ids=>[])
 		if @reservation.save
+			ReservationMailer.with(user:current_user, bus_name: @bus.name, seats: params["reservation"]['seat_ids'] ).reservation_confirmed_mail.deliver_now
 			reserved_set
 			redirect_to buses_path, notice:"Bus reserved"
 		else

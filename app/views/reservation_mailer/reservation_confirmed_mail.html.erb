@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Busreservation.com, <%= @user.name %></h1>
+    <p>
+      your username is: <%= @user.email %>.
+
+    </br>
+    You have successfully booked <%= @seats.count%> seats,      <br>
+    </p>
+    <p>
+      You have booked <%= @seats.count%> seats seat numbers are <%= @seats%>
+        To see the reservations, just follow this link: <%= @url %>.
+    </p>
+    <p>Thanks for booking and have a safe journey!</p>
+  </body>
+</html>
